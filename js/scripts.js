@@ -4,25 +4,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
   let products = [];
   let bestSellerProducts = [];
+  let featuredProducts = [];
 
   async function fetchData(urlApi) {
     const response = await fetch(urlApi);
     products = await response.json();
-    console.log('products', products);
-    bestSellerProducts = products.filter(product => product.rating.rate >= 4.5);
-    console.log('bestSellerProducts', bestSellerProducts);
     
+    bestSellerProducts = products.filter(product => product.rating.rate >= 4.5);
     displayBestSellerProducts(bestSellerProducts, $BEST_SELLERS_CONTAINER);
-    return products;
+
+    featuredProducts = products.slice(6, 10);
+    displayFeaturedProducts(featuredProducts, $FEATURED_CONTAINER);
+    console.log('featuredProducts', featuredProducts)
+    
+    // return products;
   }
 
   fetchData(API_URL);
 
-  
-
-  
-
-  const $BEST_SELLERS_CONTAINER = document.getElementById('bestSellerList')
+  const $BEST_SELLERS_CONTAINER = document.getElementById('bestSellerList');
 
   function displayBestSellerProducts(products, container) {
     products.forEach(product => {
@@ -64,10 +64,58 @@ document.addEventListener('DOMContentLoaded', function() {
       container.appendChild($PRODUCT_ITEM);
 
     });
-    
   }
 
+  const $FEATURED_CONTAINER = document.getElementById('featuredList');
+
+  function displayFeaturedProducts(products, container){
+    products.forEach( product => {
+      const $PRODUCT_ITEM__COLUMN = document.createElement('article');
+      $PRODUCT_ITEM__COLUMN.classList.add('col-sm-6', 'col-md-4', 'col-lg-3');
+
+      const $PRODUCT_CARD = document.createElement('div');
+      $PRODUCT_CARD.classList.add('card');
+
+      const $PRODUCT_IMG = document.createElement('img');
+      $PRODUCT_IMG.src = product.image;
+      $PRODUCT_IMG.alt = product.title;
+      $PRODUCT_IMG.classList.add('card-img-top');
+      $PRODUCT_IMG.width = '100%';
+      $PRODUCT_IMG.height = 280;
+
+      $PRODUCT_CARD.appendChild($PRODUCT_IMG);
+
+      const $PRODUCT_DETAILS_CONTAINER = document.createElement('div');
+      $PRODUCT_DETAILS_CONTAINER.classList.add('card-body')
+
+      const $PRODUCT_TITLE = document.createElement('h5');
+      $PRODUCT_TITLE.classList.add('card-title');
+      $PRODUCT_TITLE.textContent = product.title;
+
+      const $PRODUCT_DESCRIPTION = document.createElement('p');
+      $PRODUCT_DESCRIPTION.classList.add('card-text');
+      $PRODUCT_DESCRIPTION.textContent = product.description;
+
+      const $PRODUCT_LINK = document.createElement('a');
+      $PRODUCT_LINK.href = 'product-detail.html';
+      $PRODUCT_LINK.classList.add('btn', 'btn-outline-secondary', 'd-block')
+      $PRODUCT_LINK.textContent = 'Ver detalle';
+
+      $PRODUCT_DETAILS_CONTAINER.appendChild($PRODUCT_TITLE);
+      $PRODUCT_DETAILS_CONTAINER.appendChild($PRODUCT_DESCRIPTION);
+      $PRODUCT_DETAILS_CONTAINER.appendChild($PRODUCT_LINK);
+
+      $PRODUCT_CARD.appendChild($PRODUCT_DETAILS_CONTAINER);
+      $PRODUCT_ITEM__COLUMN.appendChild($PRODUCT_CARD);
+      container.appendChild($PRODUCT_ITEM__COLUMN);
+    })
+  }
+
+
+
+
  
+
 
   // const $FORM = document.forms.contactForm;
   // const $ASUNTO = $FORM.elements.asunto
