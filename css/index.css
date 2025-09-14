@@ -183,7 +183,6 @@
 .card:hover{
   transform: scale(1.03);
   box-shadow: var(--shadow);
-  background: #f9fbff;
   border-bottom-left-radius: var(--border-lg);
   border-bottom-right-radius: var(--border-lg);
 }

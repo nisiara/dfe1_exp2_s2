@@ -7,27 +7,42 @@ document.addEventListener('DOMContentLoaded', function() {
   let featuredProducts = [];
 
   async function fetchData(urlApi) {
-    const response = await fetch(urlApi);
-    products = await response.json();
-    
-    bestSellerProducts = products.filter(product => product.rating.rate >= 4.5);
-    displayBestSellerProducts(bestSellerProducts, $BEST_SELLERS_CONTAINER);
+    try {
+      const response = await fetch(urlApi);
+      products = await response.json();
+      
+      bestSellerProducts = products.filter(product => product.rating.rate >= 4.5);
+      displayBestSellerProducts(bestSellerProducts, $BEST_SELLERS_CONTAINER);
 
-    featuredProducts = products.slice(6, 10);
-    displayFeaturedProducts(featuredProducts, $FEATURED_CONTAINER);
-    console.log('featuredProducts', featuredProducts)
+      featuredProducts = products.slice(6, 10);
+      displayFeaturedProducts(featuredProducts, $FEATURED_CONTAINER);
+      console.log('featuredProducts', featuredProducts)
+      // return products;
+    } catch (error) {
+
+      console.log(error.message);
+      
+    }
     
-    // return products;
+    
+    
   }
 
   fetchData(API_URL);
 
   const $BEST_SELLERS_CONTAINER = document.getElementById('bestSellerList');
 
+  function showData(product){
+    const $PRODUCT_DESCRIPTION = document.createElement('div');
+    $PRODUCT_DESCRIPTION.textContent = product.description;
+    $BEST_SELLERS_CONTAINER.appendChild($PRODUCT_DESCRIPTION);
+  }
+
   function displayBestSellerProducts(products, container) {
     products.forEach(product => {
       const $PRODUCT_ITEM = document.createElement('li');
       $PRODUCT_ITEM.classList.add('best-seller__product', 'col-md-6', 'col-lg-4');
+      $PRODUCT_ITEM.addEventListener('mouseenter', () => showData(product));
 
       const $PRODUCT_LINK_CONTAINER = document.createElement('a');
       $PRODUCT_LINK_CONTAINER.href = 'product-detail.html';
