@@ -1,3 +1,9 @@
+.navbar-brand__logo{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #012042
+}
 
 .carousel {
   margin-bottom: 2rem;
@@ -32,35 +38,49 @@
 .best-seller {
   margin-bottom: 6rem;
 }
-.best-seller h2 {
-  margin-bottom: 1rem;
-}
+
 .best-seller ol{
   list-style: none;
   padding-left: 0;
 }
 .best-seller__product a{
+  position: relative;
   display: flex;
   padding: .5rem 1rem;
   height: 100%;
   border-radius: var(--border-md);
-  background: var(--color-background);
+  /* background: var(--color-background); */
+  background: linear-gradient(90deg,rgba(4, 60, 121, 1) 0%, rgba(91, 172, 183, 1) 100%);
   transition: all 0.3s ease;
 }
-.best-seller__product a:hover{
-  background: #f9fbff;
-  transform: scale(1.03);
-  box-shadow: var(--shadow);
+
+.best-seller__description{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  top: 0;
+  left: 0;
+  background: #FFF;
+  font-size: var(--text-xxs);
+  line-height: var(--text-md);
+  border-radius: var(--border-md);
+   box-shadow: var(--shadow);
+   max-height: 100%;
+   overflow: auto;
 }
-.best-seller__product div{
+.best-seller__details{
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: .35rem;
-  padding: 0 .5rem 0 2rem
+  padding: 0 .5rem 0 2rem;
+  color: #FFF
 }
 .best-seller__image{
+  background: #FFF;
+  padding: 10px;
   border-radius: var(--border-md);
 }
 @media screen and (max-width: 767px) {
@@ -80,7 +100,8 @@
   font-weight: 500;
   border-radius: var(--border-sm);
   padding: .15rem .35rem;
-  background: var(--color-secondary);
+  background: #FFF;
+  color: var(--color-text);
 }
 .best-seller__price{
   font-size: var(--text-sm);
@@ -90,16 +111,14 @@
 .featured {
   margin-bottom: 6rem;
 }
-.featured h2 {
-  margin-bottom: 1rem;
-}
+
 .featured .card{
   border: 0;
   height: 100%;
   transition: all 0.3s ease;
 }
 .featured article:nth-child(odd) .card{
-  background: var(--color-background);
+  background: rgb(43 162 238 / 10%);
 }
 .card:hover{
   transform: scale(1.03);
@@ -108,6 +127,7 @@
   border-bottom-right-radius: var(--border-lg);
 }
 .featured .card-img-top{
+  padding: 20px;
   max-width: 100%;
   object-fit: contain;
   object-position: center;
